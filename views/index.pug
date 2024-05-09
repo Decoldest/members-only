@@ -8,5 +8,9 @@ block content
 
   button 
     a(href="/sign-up") Sign Up
-  button 
-    a(href="/login") Log In 
+  if user
+    button 
+      a(href="/logout") Log Out 
+  else 
+    button 
+      a(href="/login") Log In
