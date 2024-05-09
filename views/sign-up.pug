@@ -1,7 +1,7 @@
 extends layout
 
 block content 
-  form(method='POST' action="")
+  form(method='POST')
     div.form-group
       label(for='firstname') First Name:
       input#title.form-control(type='text', placeholder='Joe' name='firstname' required value=(undefined===user ? '' : user.firstname) )
@@ -20,7 +20,7 @@ block content
     div.form-group
       label(for='code') Member Code:
       input#title.form-control(type='text', name='code')
-    button.btn.btn-primary(type='submit') Submit
+    button.btn.btn-primary(type='submit') Sign Up
   
   if errors
     ul
