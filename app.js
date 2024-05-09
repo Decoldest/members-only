@@ -7,10 +7,10 @@ require("dotenv").config();
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const bcrypt = require("bycryptjs");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const passport = require( "passport" );
 
 var app = express();
 
@@ -23,12 +23,15 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({mongoUrl:process.env.DB_STRING}),
+    store: MongoStore.create({ mongoUrl: process.env.DB_STRING }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
     },
   }),
 );
+require("./config/passport")
+app.use(passport.session())
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
