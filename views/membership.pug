@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 #{title}
+  if user.membership 
+    h2 You are already an elite member 
+  else
+    form(method='POST')
+      div.form-group
+        label(for='code') Member Code:
+        input#title.form-control(type='text', name='code', autocomplete="off")
+      button.btn.btn-primary(type='submit') Get Access
+  
+    if errors
+      ul
+        for error in errors
+          li!= error.msg
+
+  button 
+    a(href="/") Back to Home

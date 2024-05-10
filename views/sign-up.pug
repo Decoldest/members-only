@@ -19,7 +19,7 @@ block content
       input#title.form-control(type='password', name='password-confirm' required)
     div.form-group
       label(for='code') Member Code:
-      input#title.form-control(type='text', name='code')
+      input#title.form-control(type='text', name='code', autocomplete="off")
     button.btn.btn-primary(type='submit') Sign Up
   
   if errors

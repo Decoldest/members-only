@@ -26,7 +26,15 @@ exports.sign_up_post = [
     .trim()
     .isLength({ min: 1, max: 100 })
     .escape()
-    .withMessage("Username must be between 1-100 characters."),
+    .withMessage("Username must be between 1-100 characters.")
+    .custom(async (value) => {
+      const user = await User.findOne(value);
+      if (user) {
+        throw new Error("Username taken");
+      }
+      return true;
+    })
+    .withMessage("Username is already taken."),
   body("password")
     .isLength({ min: 5 })
     .escape()
@@ -66,7 +74,7 @@ exports.sign_up_post = [
         password: hashedPassword,
         membership: membership,
       });
-      console.log(user)
+      console.log(user);
       try {
         const result = await user.save();
         console.log("saved");

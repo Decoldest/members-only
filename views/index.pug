@@ -6,11 +6,15 @@ block content
 
   p #{user}
 
-  button 
-    a(href="/sign-up") Sign Up
   if user
     button 
       a(href="/logout") Log Out 
+    if !user.membership
+    button 
+      a(href="/membership") Get Access
   else 
     button 
+      a(href="/sign-up") Sign Up
+    button 
       a(href="/login") Log In
+  
