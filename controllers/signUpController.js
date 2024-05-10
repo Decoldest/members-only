@@ -74,10 +74,8 @@ exports.sign_up_post = [
         password: hashedPassword,
         membership: membership,
       });
-      console.log(user);
       try {
         const result = await user.save();
-        console.log("saved");
         res.redirect("/");
       } catch (error) {
         return next(error);

@@ -2,19 +2,23 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
-
   p #{user}
 
   if user
     button 
       a(href="/logout") Log Out 
-    if !user.membership
     button 
-      a(href="/membership") Get Access
+      a(href="/message") Create Message
+    if !user.membership
+      button 
+        a(href="/membership") Get Access
+    
   else 
+    h1 Sign Up or Log In to post a message
     button 
       a(href="/sign-up") Sign Up
     button 
       a(href="/login") Log In
+  
+  
   
