@@ -20,11 +20,15 @@
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
     "http-errors": "~1.6.3",
+    "mongoose": "^8.3.4",
     "morgan": "~1.9.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "postcss": "^8.4.38",
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.7",
     "nodemon": "^3.1.0",
     "tailwindcss": "^3.4.3"
   }

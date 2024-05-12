@@ -8,12 +8,18 @@ const helmet = require("helmet");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const passport = require("passport");
 
 var app = express();
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(process.env.DB_STRING);
+}
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -32,7 +38,10 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: process.env.DB_STRING }),
+    store: MongoStore.create({
+      mongoUrl: process.env.DB_STRING,
+      collection: "session",
+    }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
     },
