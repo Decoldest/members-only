@@ -17,3 +17,7 @@ body {
 .time {
   font-size: 0.5rem;
 }
+
+a {
+  text-decoration: none;
+}
