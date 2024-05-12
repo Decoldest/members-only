@@ -48,7 +48,7 @@ router.post("/membership", membershipController.membership_post);
 router.get("/message", messageController.message_get);
 router.post("/message", messageController.message_post);
 
-/* Message deletuion GET and POST */
+/* Message deletion GET and POST */
 router.get("/message/:id/delete", deleteMessageController.delete_message_get);
 router.post("/message/:id/delete", deleteMessageController.delete_message_post);
 

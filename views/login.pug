@@ -1,6 +1,7 @@
 extends layout
 
 block content 
+  h1= title
 
   if user && user.membership
   form(method='POST' action="")

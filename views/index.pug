@@ -2,36 +2,39 @@ extends layout
 
 block content
   h1 #{title}
-  h4 Are you sure you want to delete this message?
 
   if user
-    button 
-      a(href="/logout") Log Out 
-    button 
-      a(href="/message") Create Message
-    if !user.membership
-      button 
-        a(href="/membership") Get Access
+    .user-controls
+      button.btn
+        a(href="/logout") Log Out 
+      button.btn
+        a(href="/message") Create Message
+      if !user.membership
+        button.btn
+          a(href="/membership") Get Access
     
   else 
-    h4 Sign Up or Log In to post a message
-    button 
-      a(href="/sign-up") Sign Up
-    button 
-      a(href="/login") Log In
+    .user-controls
+      h4 Sign Up or Log In to post a message
+      button.btn
+        a(href="/sign-up") Sign Up
+      button.btn
+        a(href="/login") Log In
   
   
-  for message in messages 
-    if user && user.membership
-      h4 #{message.author.username} 
-      h2 #{message.title}
-      p #{message.text}
-      h5 #{message.time}
-      if user.admin 
-        button
-          a(href=`/message/${message.id}/delete`) Delete Message
-    else
-      h2 #{message.title}
-      p #{message.text}
-  
-  
+  for message in messages
+    div.message-container
+      if user && user.membership
+        .message-content
+          h4.author #{message.author.username} 
+          h2.title #{message.title}
+          p.text #{message.text}
+          h5.time #{message.time}
+          if user.admin 
+            button.btn-delete
+              a(href=`/message/${message.id}/delete`) Delete Message
+      else
+        .message-content
+          h2.title #{message.title}
+          p.text #{message.text}
+

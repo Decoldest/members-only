@@ -1,8 +1,19 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.message-container {
+  border: black 1px solid ;
+  margin: 10px;
+  padding: 10px 5px;
+  border-radius: 20px;
+}
+
+.time {
+  font-size: 0.5rem;
 }

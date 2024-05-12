@@ -7,16 +7,10 @@ exports.delete_message_get = (req, res, next) => {
 };
 
 exports.delete_message_post = async (req, res, next) => {
-  console.log(req.params.id);
   try {
-    const message = await Message.findById(req.params.id).exec();
+    await Message.findByIdAndDelete(req.params.id);
 
-    if (message === null) {
-      res.redirect("/");
-    } else {
-      await Message.deleteOne(message);
-      res.redirect("/");
-    }
+    res.redirect("/");
   } catch (error) {
     next(error);
   }
