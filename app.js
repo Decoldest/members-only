@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 require("dotenv").config();
+const helmet = require("helmet");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -13,6 +14,14 @@ var usersRouter = require("./routes/users");
 const passport = require("passport");
 
 var app = express();
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  }),
+);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
