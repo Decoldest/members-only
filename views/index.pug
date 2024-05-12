@@ -21,4 +21,18 @@ block content
       a(href="/login") Log In
   
   
+  for message in messages 
+    if user && user.membership
+      p #{message}
+      h4 #{message.author.username} 
+      h2 #{message.title}
+      p #{message.text}
+      h5 #{message.time}
+      if user.admin 
+        button
+          a(href=`/delete/:${message.id}`) Delete Message
+    else
+      h2 #{message.title}
+      p #{message.text}
+  
   

@@ -4,14 +4,22 @@ const signUpController = require("../controllers/signUpController");
 const loginController = require("../controllers/loginController");
 const membershipController = require("../controllers/membershipController");
 const messageController = require("../controllers/messageController");
+const asyncHandler = require("express-async-handler");
+const User = require("../models/user");
+const Message = require("../models/message");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", {
-    title: "The Elite Member's Club",
-    user: res.locals.currentUser,
-  });
-});
+router.get(
+  "/",
+  asyncHandler(async (req, res, next) => {
+    const messages = await Message.find({}).populate("author").exec();
+    res.render("index", {
+      title: "The Elite Member's Club",
+      user: res.locals.currentUser,
+      messages: messages,
+    });
+  }),
+);
 
 /* Sign up GET and POST */
 router.get("/sign-up", signUpController.sign_up_get);

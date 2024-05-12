@@ -2,6 +2,7 @@ const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 
 exports.sign_up_get = (req, res, next) => {
   res.render("sign-up", { title: "Sign Up" });
@@ -28,11 +29,10 @@ exports.sign_up_post = [
     .escape()
     .withMessage("Username must be between 1-100 characters.")
     .custom(async (value) => {
-      const user = await User.findOne(value);
+      const user = await User.findOne({ username: value });
       if (user) {
         throw new Error("Username taken");
       }
-      return true;
     })
     .withMessage("Username is already taken."),
   body("password")
@@ -63,23 +63,26 @@ exports.sign_up_post = [
         errors: errors.array(),
         user: userCheck,
       });
-    }
-    const membership = req.body.code === process.env.MEMBERSHIP_CODE;
-    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-      if (err) {
-        return next(err);
-      }
-      const user = new User({
-        ...userCheck,
-        password: hashedPassword,
-        membership: membership,
+    } else {
+      const admin = req.body.admin === process.env.ADMIN_CODE;
+      const membership = req.body.code === process.env.MEMBERSHIP_CODE || admin;
+      bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+        if (err) {
+          return next(err);
+        }
+        const user = new User({
+          ...userCheck,
+          password: hashedPassword,
+          membership: membership,
+          admin: admin,
+        });
+        try {
+          const result = await user.save();
+          res.redirect("/login");
+        } catch (error) {
+          return next(error);
+        }
       });
-      try {
-        const result = await user.save();
-        res.redirect("/");
-      } catch (error) {
-        return next(error);
-      }
-    });
+    }
   }),
 ];
