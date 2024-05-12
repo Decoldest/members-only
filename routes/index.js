@@ -4,6 +4,7 @@ const signUpController = require("../controllers/signUpController");
 const loginController = require("../controllers/loginController");
 const membershipController = require("../controllers/membershipController");
 const messageController = require("../controllers/messageController");
+const deleteMessageController = require("../controllers/deleteMessageController");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
 const Message = require("../models/message");
@@ -46,5 +47,9 @@ router.post("/membership", membershipController.membership_post);
 /* Create message form GET and POST */
 router.get("/message", messageController.message_get);
 router.post("/message", messageController.message_post);
+
+/* Message deletuion GET and POST */
+router.get("/message/:id/delete", deleteMessageController.delete_message_get);
+router.post("/message/:id/delete", deleteMessageController.delete_message_post);
 
 module.exports = router;
